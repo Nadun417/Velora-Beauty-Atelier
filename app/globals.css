@@ -1,0 +1,217 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   VELORA design tokens
+   Colours, type, spacing, easing and radii live here so every
+   component pulls from one source of truth.
+------------------------------------------------------------------- */
+@theme {
+  /* Palette */
+  --color-ivory: #f2efea;
+  --color-cream: #faf9f6;
+  --color-ink: #171714;
+  --color-umber: #8d7866;
+  --color-champagne: #c9a98b;
+  --color-line: rgba(23, 23, 20, 0.15);
+  --color-line-soft: rgba(23, 23, 20, 0.08);
+  --color-line-light: rgba(242, 239, 234, 0.18);
+  --color-error: #9a3f2f;
+
+  /* Type */
+  --font-display: var(--font-instrument-serif), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-manrope), "Inter", system-ui, sans-serif;
+
+  --text-hero: clamp(3.4rem, 9vw, 10rem);
+  --text-hero--line-height: 0.92;
+  --text-hero--letter-spacing: -0.02em;
+  --text-display: clamp(2.75rem, 6.5vw, 6.5rem);
+  --text-display--line-height: 0.96;
+  --text-display--letter-spacing: -0.02em;
+  --text-title: clamp(2rem, 4vw, 3.75rem);
+  --text-title--line-height: 1.02;
+  --text-title--letter-spacing: -0.015em;
+  --text-lead: clamp(1.125rem, 1.4vw, 1.375rem);
+  --text-lead--line-height: 1.5;
+  --text-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+  --text-body--line-height: 1.65;
+  --text-eyebrow: 0.6875rem;
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.22em;
+
+  /* Spacing */
+  --spacing-gutter: clamp(1.25rem, 5vw, 5rem);
+  --spacing-section: clamp(4rem, 6vw + 2rem, 11rem);
+  --spacing-section-sm: clamp(3rem, 4vw + 1rem, 7rem);
+
+  /* Containers */
+  --container-content: 96rem;
+  --container-prose: 40rem;
+
+  /* Radii */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--color-ink);
+    color: var(--color-ivory);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 4px;
+  }
+
+  .dark-section :focus-visible {
+    outline-color: var(--color-ivory);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  /* Custom cursor: hide the native pointer only when JS has enabled it. */
+  html.has-custom-cursor,
+  html.has-custom-cursor a,
+  html.has-custom-cursor button,
+  html.has-custom-cursor [role="button"] {
+    cursor: none;
+  }
+
+  html.has-custom-cursor input,
+  html.has-custom-cursor textarea,
+  html.has-custom-cursor select {
+    cursor: auto;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-eyebrow);
+    line-height: var(--text-eyebrow--line-height);
+    letter-spacing: var(--text-eyebrow--letter-spacing);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .hairline {
+    border-top: 1px solid var(--color-line);
+  }
+
+  /* Editorial underline used on nav + text links */
+  .link-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.2em;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.55s var(--ease-out-expo);
+  }
+
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after,
+  .link-underline[data-active="true"]::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Film-grain drift for the Grain overlay. */
+  .animate-grain {
+    animation: grain 0.7s steps(4) infinite;
+  }
+}
+
+@keyframes grain {
+  0% {
+    background-position: 0 0;
+  }
+  25% {
+    background-position: -40px 20px;
+  }
+  50% {
+    background-position: 30px -30px;
+  }
+  75% {
+    background-position: -20px -40px;
+  }
+  100% {
+    background-position: 40px 30px;
+  }
+}
+
+/* Reduced motion: keep the site usable and calm. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
