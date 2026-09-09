@@ -1,4 +1,4 @@
-# Velora — Beauty Atelier
+# Velora - Beauty Atelier
 
 Velora is a fictional beauty salon in Colombo. I built this site as a front-end assessment, and the idea was to make the salon and beauty category feel closer to a fashion or design studio than the usual template with three service cards and a contact form.
 
