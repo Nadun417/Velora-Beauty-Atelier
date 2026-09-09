@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+# Netlify's Next.js runtime handles the App Router, server components and
+# next/image. It is fetched automatically from the entry below.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  # Next 16 needs Node 20 or newer.
+  NODE_VERSION = "20"
